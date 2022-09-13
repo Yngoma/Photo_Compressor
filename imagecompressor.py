@@ -20,7 +20,7 @@ class Ui_MainWindow(QWidget):
         MainWindow.setStyleSheet("background-color: rgb(119, 118, 123);\n"
                                 "QlineEdit{\n"
                                 "border: 2px dolid gray;\n"
-                                "border-radius: 10px;\n"
+                                "border-radius: 30px;\n"
                                 "               }\n"
                                 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -111,7 +111,14 @@ class Ui_MainWindow(QWidget):
         img = Image.open(file_loc[0]) 
         
     def SaveImage(self):
-        img.save("Compressed.jpg", "JPEG", optimize = True, quality = 25)
+        name = self.compressedlineEdit.text()
+        if self.TrueB.isChecked():
+            optimize = True
+        elif self.FalseB.isChecked():
+            optimize = False
+       
+        quality = self.Quality.value()
+        img.save( str(name)+".jpg", "JPEG", optimize = optimize, quality = quality)
         self.Status.setText(_translate("MainWindow", "Image is Compressed"))
         print("Image is Compressed")
         
